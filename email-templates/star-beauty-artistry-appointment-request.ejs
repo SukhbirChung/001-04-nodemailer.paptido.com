@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style type="text/css">
+        .client-details {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .appointment-notes {
+            max-width: 400px;
+            margin-top: 8px;
+            border: 1px solid gray;
+            padding: 8px;
+            text-align: justify;
+        }
+
+        a {
+            display: inline-block;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background-color: #9f2b2b;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="margin-top: 16px;" class="client-details">Client Name: <%= name %>
+    </div>
+    <div class="client-details">Client Phone: <%= phone %>
+    </div>
+    <div class="client-details">Requested Date: <%= date %>
+    </div>
+    <div class="client-details">Requested Time: <%= time %>
+    </div><br>
+
+    <div class="client-details">Services Requested:</div>
+    <div>
+        <ol>
+            <% for (let service of services) { %>
+                <li>
+                    <%= service.title %>: <%= Math.floor((service.duration)/60) %> hrs <%= (service.duration)%60 %> mins
+                                ($<%= service.price %>)
+                </li>
+                <% } %>
+        </ol>
+    </div><br>
+
+    <div class="client-details">Appointment Notes:</div>
+    <p class="appointment-notes">
+        <% if(appointmentNotes) { %>
+            <%= appointmentNotes %>
+                <% } else { %>
+                    <%= name %> did not send any appointment notes.
+                        <% } %>
+    </p>
+
+    <div>
+        <a href="http://localhost:3000/pendingAppointments">Click here to confirm or cancel the appointment</a>
+    </div>
+</body>
+
+</html>
