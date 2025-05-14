@@ -119,7 +119,7 @@ app.post('/sendResetLink', async (req, res, next) => {
     next();
 }, sendEmail);
 
-app.post('/starbeautyartistryappointmentrequest', async (req, res, next) => {
+app.post('/starbeautyartistrypendingappointmentrequest', async (req, res, next) => {
     const { name } = req.body;
     const configurations = createConfigurations('starbeautyartistry');
     const transporter = nodemailer.createTransport(configurations);
