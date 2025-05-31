@@ -46,16 +46,31 @@
 
     <div class="client-details">Services Requested:</div>
     <div>
+        <% if (typeof services==='string' ) { %>
+            <%= services %>
+            <% } else { %>
+                <ol>
+                    <% for (let service of services) { %>
+                        <li>
+                            <%= service.title %>: <%= Math.floor((service.duration)/60) %> hrs <%= (service.duration)%60
+                                        %> mins
+                                        ($<%= service.price %>)
+                        </li>
+                        <% } %>
+                </ol>
+                <% } %>
+    </div><br>
+    
+    <div class="client-details">Extra Services Requested:</div>
+    <div>
         <ol>
-            <% for (let service of services) { %>
+            <% for (let extraService of extraServices) { %>
                 <li>
-                    <%= service.title %>: <%= Math.floor((service.duration)/60) %> hrs <%= (service.duration)%60 %> mins
-                                ($<%= service.price %>)
+                    <%= extraService %>
                 </li>
                 <% } %>
         </ol>
-    </div><br>
-
+    </div>
     <div class="client-details">Appointment Notes:</div>
     <p class="appointment-notes">
         <% if(appointmentNotes) { %>
