@@ -108,6 +108,9 @@ app.post('/confirmation', (req, res, next) => {
 app.post('/sendResetLink', async (req, res, next) => {
     const { email, resetToken } = req.body;
 
+    const configurations = createConfigurations('');
+    const transporter = nodemailer.createTransport(configurations);
+
     const resetLink = `${resetLinkBase}?token=${resetToken}`;
     const emailBody = `<p style="border-radius: 8px; padding: 8px; background-color: pink;">Click the following link to reset your password:<br>Link expires in 1 hour.<br><a href="${resetLink}">${resetLink}</a></p>`;
     const mailOptions = {
@@ -118,6 +121,7 @@ app.post('/sendResetLink', async (req, res, next) => {
     }
 
     req.mailOptions = mailOptions;
+    req.transporter = transporter;
     req.confirmationCode = 'Password reset email sent.';
     next();
 }, sendEmail);
