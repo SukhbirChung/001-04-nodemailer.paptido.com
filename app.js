@@ -86,6 +86,8 @@ Message: ${message}`
 
 app.post('/confirmation', (req, res, next) => {
     const email = req.body.email;
+    const configurations = createConfigurations('');
+    const transporter = nodemailer.createTransport(configurations);
     const confirmationCode = Math.floor(100000 + Math.random() * 900000);
     const emailBody = `<p style="border-radius: 8px; padding: 8px; text-align: center; background-color: pink;">Your confirmation code is:<br><span style="font-size: 20px;">${confirmationCode}</span></p>`;
 
@@ -97,6 +99,7 @@ app.post('/confirmation', (req, res, next) => {
     };
 
     req.mailOptions = mailOptions;
+    req.transporter = transporter;
     req.confirmationCode = confirmationCode;
 
     next();
@@ -147,4 +150,4 @@ app.post('/starbeautyartistrypendingappointmentrequest', async (req, res, next) 
     });
 }, sendEmail);
 
-app.listen(3001, () => console.log("Listening..."));
+app.listen(3000, () => console.log("Listening..."));
